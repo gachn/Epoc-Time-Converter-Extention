@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Relative Time Converter</title>
+  <style>
+    body {
+      width: 350px;
+      padding: 20px;
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      resize: vertical;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    textarea#absoluteTime {
+      background-color: #e9ecef;
+      cursor: default;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <h2>Relative Time Converter</h2>
+  <textarea id="relativeTime" placeholder="Enter relative time (e.g., now + 2 days)"></textarea>
+  <textarea id="absoluteTime" placeholder="Epoch time will appear here" readonly></textarea>
+  <script src="popup.js"></script>
+</body>
+</html>

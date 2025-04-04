@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Relative Time Converter",
+  "version": "1.0",
+  "description": "Converts relative time expressions to absolute timestamps.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": []
+}
