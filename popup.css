@@ -1,0 +1,390 @@
+/* CSS Variables & Theme Definitions */
+:root {
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Light Theme Colors */
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+  --input-bg: #f8f9fa;
+  --input-border: #ced4da;
+  --input-text: #212529;
+  --input-focus-border: #0d6efd;
+  --input-focus-shadow: rgba(13, 110, 253, 0.25);
+  --btn-primary-bg: #0d6efd;
+  --btn-primary-hover: #0b5ed7;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: #e9ecef;
+  --btn-secondary-hover: #dee2e6;
+  --btn-secondary-text: #495057;
+  --card-bg: #f8f9fa;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+  --accent-color: #198754;
+  --error-color: #dc3545;
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --transition-speed: 0.2s;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme Colors */
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --text-muted: #888888;
+  --border-color: #2d2d2d;
+  --input-bg: #1e1e1e;
+  --input-border: #444444;
+  --input-text: #e0e0e0;
+  --input-focus-border: #375a7f;
+  --input-focus-shadow: rgba(55, 90, 127, 0.4);
+  --btn-primary-bg: #375a7f;
+  --btn-primary-hover: #4b729f;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: #2d2d2d;
+  --btn-secondary-hover: #3d3d3d;
+  --btn-secondary-text: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --accent-color: #28a745;
+  --error-color: #e74c3c;
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 400px;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-clock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+  font-family: monospace;
+  font-size: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.clock-label {
+  color: var(--text-muted);
+}
+
+.clock-val {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-speed), border-color var(--transition-speed);
+  background-color: var(--card-bg);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--btn-secondary-hover);
+}
+
+/* Tab Navigation */
+.tabs-nav {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  gap: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  text-align: center;
+}
+
+.tab-btn:hover {
+  color: var(--text-color);
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.tab-btn.active {
+  color: var(--input-focus-border);
+  border-bottom-color: var(--input-focus-border);
+  font-weight: 600;
+}
+
+/* Tab Content */
+.tab-content {
+  min-height: 250px;
+}
+
+.tab-panel {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tab-panel.active {
+  display: flex;
+}
+
+.output-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Form Controls */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label,
+.output-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="datetime-local"]:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
+}
+
+input[readonly] {
+  background-color: var(--card-bg);
+  cursor: default;
+}
+
+/* Input with Button layout */
+.input-with-btn {
+  display: flex;
+  gap: 8px;
+}
+
+.input-with-btn input {
+  flex: 1;
+}
+
+/* Buttons */
+.copy-btn,
+.action-btn {
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--border-color);
+}
+
+.copy-btn:hover {
+  background-color: var(--btn-secondary-hover);
+}
+
+.copy-btn:active,
+.action-btn:active {
+  transform: scale(0.97);
+}
+
+.action-btn {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
+
+.action-btn:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+/* History Section */
+.history-section {
+  margin-top: 8px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.history-header h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: var(--error-color);
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-speed);
+}
+
+.clear-btn:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.history-list {
+  list-style: none;
+  max-height: 120px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 4px;
+}
+
+/* Custom Scrollbar for History List */
+.history-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+.history-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 12px;
+}
+
+.history-list li .history-item-text {
+  font-family: monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 280px;
+}
+
+.history-list li .history-item-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.history-list li .history-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 2px;
+  border-radius: var(--border-radius-sm);
+  transition: color var(--transition-speed);
+}
+
+.history-list li .history-action-btn:hover {
+  color: var(--text-color);
+}
+
+.empty-history {
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  padding: 12px 0;
+  border: none !important;
+  background: none !important;
+  justify-content: center !important;
+}
