@@ -1,49 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relative Time Converter</title>
-  <style>
-    body {
-      width: 350px;
-      padding: 20px;
-      font-family: sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #007bff;
-    }
-
-    textarea {
-      width: calc(100% - 20px);
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      resize: vertical;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-
-    textarea#absoluteTime {
-      background-color: #e9ecef;
-      cursor: default;
-    }
-
-    textarea:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-  </style>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h2>Relative Time Converter</h2>
-  <textarea id="relativeTime" placeholder="Enter relative time (e.g., now + 2 days)"></textarea>
-  <textarea id="absoluteTime" placeholder="Epoch time will appear here" readonly></textarea>
+  <div class="container">
+    <!-- Header Section -->
+    <header class="header">
+      <h1 class="title">Time Converter</h1>
+      <div class="header-controls">
+        <div class="live-clock" id="live-clock" title="Live Epoch Time">
+          <span class="clock-label">Epoch:</span>
+          <span id="live-epoch-val" class="clock-val">---------</span>
+        </div>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Light/Dark Theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tabs-nav" role="tablist">
+      <button class="tab-btn active" data-tab="relative-tab" role="tab" aria-selected="true" aria-controls="relative-tab">Relative</button>
+      <button class="tab-btn" data-tab="epoch-tab" role="tab" aria-selected="false" aria-controls="epoch-tab">Epoch</button>
+      <button class="tab-btn" data-tab="date-tab" role="tab" aria-selected="false" aria-controls="date-tab">Date</button>
+    </nav>
+
+    <!-- Tab Content Area -->
+    <main class="tab-content">
+      <!-- Relative Converter Tab -->
+      <section id="relative-tab" class="tab-panel active" role="tabpanel">
+        <div class="input-group">
+          <label for="relative-input">Relative Expression</label>
+          <input type="text" id="relative-input" placeholder="e.g., now + 2 days, now - 3 hours" autocomplete="off">
+        </div>
+        <div class="output-group">
+          <label for="relative-output">Epoch Timestamp</label>
+          <div class="input-with-btn">
+            <input type="text" id="relative-output" readonly placeholder="Result will appear here">
+            <button class="copy-btn" data-target="relative-output" title="Copy to clipboard">Copy</button>
+          </div>
+        </div>
+        <div class="history-section">
+          <div class="history-header">
+            <h2>History</h2>
+            <button id="clear-relative-history" class="clear-btn">Clear</button>
+          </div>
+          <ul id="relative-history" class="history-list">
+            <li class="empty-history">No history yet</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Epoch Converter Tab -->
+      <section id="epoch-tab" class="tab-panel" role="tabpanel">
+        <div class="input-group">
+          <label for="epoch-input">Epoch Timestamp</label>
+          <input type="text" id="epoch-input" placeholder="e.g., 1717490774" autocomplete="off">
+        </div>
+        <div class="output-group">
+          <label for="epoch-local-output">Local Date/Time</label>
+          <div class="input-with-btn">
+            <input type="text" id="epoch-local-output" readonly placeholder="Local time result">
+            <button class="copy-btn" data-target="epoch-local-output" title="Copy to clipboard">Copy</button>
+          </div>
+        </div>
+        <div class="output-group">
+          <label for="epoch-utc-output">UTC Date/Time</label>
+          <div class="input-with-btn">
+            <input type="text" id="epoch-utc-output" readonly placeholder="UTC time result">
+            <button class="copy-btn" data-target="epoch-utc-output" title="Copy to clipboard">Copy</button>
+          </div>
+        </div>
+        <div class="output-group">
+          <label for="epoch-relative-output">Relative Time</label>
+          <div class="input-with-btn">
+            <input type="text" id="epoch-relative-output" readonly placeholder="Relative time result">
+            <button class="copy-btn" data-target="epoch-relative-output" title="Copy to clipboard">Copy</button>
+          </div>
+        </div>
+        <div class="history-section">
+          <div class="history-header">
+            <h2>History</h2>
+            <button id="clear-epoch-history" class="clear-btn">Clear</button>
+          </div>
+          <ul id="epoch-history" class="history-list">
+            <li class="empty-history">No history yet</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Date Converter Tab -->
+      <section id="date-tab" class="tab-panel" role="tabpanel">
+        <div class="input-group">
+          <label for="date-input">Date & Time</label>
+          <div class="input-with-btn">
+            <input type="datetime-local" id="date-input">
+            <button id="set-now-btn" class="action-btn" title="Set to current time">Now</button>
+          </div>
+        </div>
+        <div class="output-group">
+          <label for="date-output">Epoch Timestamp</label>
+          <div class="input-with-btn">
+            <input type="text" id="date-output" readonly placeholder="Result will appear here">
+            <button class="copy-btn" data-target="date-output" title="Copy to clipboard">Copy</button>
+          </div>
+        </div>
+        <div class="history-section">
+          <div class="history-header">
+            <h2>History</h2>
+            <button id="clear-date-history" class="clear-btn">Clear</button>
+          </div>
+          <ul id="date-history" class="history-list">
+            <li class="empty-history">No history yet</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
